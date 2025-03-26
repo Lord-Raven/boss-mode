@@ -7,7 +7,7 @@ project_name: "Boss Mode"
 # A short tagline to show in search.
 tagline: "Elevate your narrative suggestions with []s."
 
-creator_notes: "This is a simple stage that strips any input found in brackets [] and sends it to the the LLM as stage directions, which are higher-priority instructions that are not attributed to the user's input. 
+creator_notes: "This is a simple stage that strips any input found in brackets and sends it to the the LLM as stage directions, which are higher-priority instructions that are not attributed to the user's input. 
 Simply add this stage to your chat from Chat Settings and you'll be able to leverage this feature with any input.
 <br>
 <br>
