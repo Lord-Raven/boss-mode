@@ -2,10 +2,16 @@
 #   in which case these values can be managed in the UI.
 
 # The name of the stage.
-# project_name: "Stage Template"
+project_name: "Boss Mode"
 
 # A short tagline to show in search.
-# tagline: "A base template for all stages."
+tagline: "Elevate your narrative suggestions with []s."
+
+creator_notes: "This is a simple stage that strips any input found in brackets [] and sends it to the the LLM as stage directions, which are higher-priority instructions that are not attributed to the user's input. 
+Simply add this stage to your chat from Chat Settings and you'll be able to leverage this feature with any input.
+<br>
+<br>
+This is an incredibly simple quality-of-life stage that I felt some folks might like to be able to drop into their chats. Let me know if you have any issues or suggestions. Thanks!"
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
 visibility: 'PRIVATE'
