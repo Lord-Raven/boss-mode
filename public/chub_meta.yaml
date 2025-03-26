@@ -11,8 +11,14 @@ creator_notes: "This is a simple stage that strips any input found in brackets [
 Simply add this stage to your chat from Chat Settings and you'll be able to leverage this feature with any input. 
 <br>
 <br>
+For example, if I write, 
+`I give {{char}} a friendly wave. [{{char}} should ignore me.]` 
+then my input will appear as `I give {{char}} a friendly wave.` and the LLM will receive `[RESPONSE INSTRUCTION]{{char}} should ignore me.[/RESPONSE INSTRUCTION]`, 
+and the LLM should generally do a better job following this instruction--although it is obviously not guaranteed. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
+<br>
+<br>
 By removing these notes from the user's input and providing them later in the prompt, we not only elevate their efficacy, but also avoid teaching the LLM that it should include similar notes in its responses. 
-It also means that these instruction drops from context following the next response, which could be a pro or a con, depending on what you are trying to achieve--
+It also means that these instruction drop from context following the next response, which could be a pro or a con, depending on what you are trying to achieve;
 I tend to think it is a pro for most situations (you don't want chat history to fill up with lots of moment-to-moment instruction), 
 but bear in mind that if you provide instruction that the bot does not achieve in a single response, the bot will no longer see that instruction in future responses.
 <br>
