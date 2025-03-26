@@ -27,7 +27,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
     async beforePrompt(userMessage: Message): Promise<Partial<StageResponse<ChatStateType, MessageStateType>>> {
         const {content} = userMessage;
-        const regex = /\[([^\]]+)\](?!\() /gm;
+        const regex = /\[([^\]]+)\](?!\()/gm;
         const stageDirections = [...content.matchAll(regex)].map(match => match.slice(1)).join('\n').trim();
         const newContent = content.replace(regex, "").trim();
 
