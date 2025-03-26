@@ -31,9 +31,6 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         const stageDirections = [...content.matchAll(regex)].map(match => match.slice(1)).join('\n').trim();
         const newContent = content.replace(regex, "").trim();
 
-        console.log(`${content}, ${stageDirections}, ${newContent}`);
-        console.log(content.match(regex));
-
         return {
             stageDirections: stageDirections.length > 0 ? `[RESPONSE INSTRUCTION]${stageDirections}[/RESPONSE INSTRUCTION]` : null,
             messageState: null,

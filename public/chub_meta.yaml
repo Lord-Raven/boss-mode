@@ -7,14 +7,20 @@ project_name: "Boss Mode"
 # A short tagline to show in search.
 tagline: "Take control with []s."
 
-creator_notes: "This is a simple stage that strips any input found in brackets [] and sends it to the the LLM as \"stage directions,\" which are higher-priority instructions that are not attributed to the user's input. 
-Simply add this stage to your chat from Chat Settings and you'll be able to leverage this feature with any input.
+creator_notes: "This is a simple stage that strips any input found in brackets [] and sends it to the the LLM as \"stage directions,\" which are higher-priority instructions that are not directly attributed to the user's input. 
+Simply add this stage to your chat from Chat Settings and you'll be able to leverage this feature with any input. 
+<br>
+<br>
+By removing these notes from the user's input and providing them later in the prompt, we not only elevate their efficacy, but also avoid teaching the LLM that it should include similar notes in its responses. 
+It also means that these instruction drops from context following the next response, which could be a pro or a con, depending on what you are trying to achieve--
+I tend to think it is a pro for most situations (you don't want chat history to fill up with lots of moment-to-moment instruction), 
+but bear in mind that if you provide instruction that the bot does not achieve in a single response, the bot will no longer see that instruction in future responses.
 <br>
 <br>
 This is an incredibly simple quality-of-life stage that I felt some folks might like to be able to drop into their chats. Let me know if you have any issues or suggestions. Thanks!"
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
-visibility: 'PRIVATE'
+visibility: 'PUBLIC'
 
 # 'ADJACENT' | 'NONE' | 'COVER' | 'FULLSCREEN'
 # 'ADJACENT' is default. The frame will display on the side of the
