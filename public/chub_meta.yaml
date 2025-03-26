@@ -12,8 +12,8 @@ Simply add this stage to your chat from Chat Settings and you'll be able to leve
 <br>
 <br>
 For example, if I write, 
-`I give {{char}} a friendly wave. [{{char}} should ignore me.]` 
-then my input will appear as `I give {{char}} a friendly wave.` and the LLM will receive `[RESPONSE INSTRUCTION]{{char}} should ignore me.[/RESPONSE INSTRUCTION]`, 
+\"`I give {{char}} a friendly wave. [{{char}} should ignore me.]`\" 
+then my input will appear as \"`I give {{char}} a friendly wave.`\" and the LLM will receive \"`[RESPONSE INSTRUCTION]{{char}} should ignore me.[/RESPONSE INSTRUCTION]`\", 
 and the LLM should generally do a better job following this instruction--although it is obviously not guaranteed. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
 <br>
 <br>
