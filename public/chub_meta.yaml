@@ -27,7 +27,7 @@ visibility: 'PRIVATE'
 position: 'NONE'
 
 # Self-explanatory.
-# tags:
+tags:
  - 'Stage'
  - 'Add-on'
  - 'Utility'
