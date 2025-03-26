@@ -35,7 +35,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         console.log(content.match(regex));
 
         return {
-            stageDirections: stageDirections,
+            stageDirections: stageDirections.length > 0 ? `[RESPONSE INSTRUCTION]${stageDirections}[/RESPONSE INSTRUCTION]` : null,
             messageState: null,
             modifiedMessage: newContent,
             systemMessage: null,
