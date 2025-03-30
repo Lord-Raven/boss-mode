@@ -11,16 +11,16 @@ creator_notes: "Want to tell the LLM how to do its job? This stage takes your br
 Simply search for and add this stage to your chat from Chat Settings and you'll be able to leverage this feature in your input. 
 <br>
 <br>
-Stage Direction Advantages:
+There are multiple advantages to shifting these instructions into stage direction:
 <ul>
-<li>More likely to be honored by the LLM.
-<li>Less likely to be mimicked by the LLM (because it isn't presented alongside narrative input).
-<li>Cleaner input.
-<li>Falls out of context for future requests.
+<li>They are more likely to be honored by the LLM.
+<li>They  are less likely to be mimicked by the LLM.
+<li>You'll maintain cleaner input in your narrative.
+<li>Stage directions fall out of context for future requests.
 </ul>
 
 For example, if you write, 
-\"`I give {{char}} a friendly wave. [{{char}} should ignore {{user}}}}.]`\" 
+\"`I give {{char}} a friendly wave. [{{char}} should ignore {{user}}.]`\" 
 then your input will appear as \"`I give {{char}} a friendly wave.`\" and the LLM will also receive \"`[RESPONSE INSTRUCTION]{{char}} should ignore {{user}}.[/RESPONSE INSTRUCTION]`\" at the end of the prompt, 
 which should help the LLM better adhere to this instruction. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
 <br>
