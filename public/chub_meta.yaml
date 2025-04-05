@@ -82,7 +82,7 @@ config_schema:
   properties:
     longTermLife:
       title: "Long-Term Instruction Duration"
-      description: "The number of subsequent responses that long-term instructions will persist to stage directions."
+      description: "The number of subsequent responses that long-term instructions will persist."
       type: integer
       default: 10
 
