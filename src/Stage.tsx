@@ -80,9 +80,16 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 ((this.longTermInstruction.length > 0 && this.longTermLife > 0) ? `### Ongoing Instruction: ${this.longTermInstruction}\n` : '') +
                 (currentInstruction.length > 0 ? `### Critical Instruction: ${currentInstruction}\n` : '');
 
+        // Preserve empty responses that only had instruction.
+        if (newContent !== content && newContent.length == 0) {
+            newContent = ' ';
+        }
+
+        let messageState = this.writeMessageState();
+
         return {
             stageDirections: stageDirections.length > 0 ? stageDirections : null,
-            messageState: this.writeMessageState(),
+            messageState: messageState,
             modifiedMessage: newContent,
             systemMessage: null,
             error: null,
