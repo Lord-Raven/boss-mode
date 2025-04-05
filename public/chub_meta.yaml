@@ -20,30 +20,31 @@ There are multiple advantages to shifting these instructions into stage directio
 </ul>
 
 [Single-bracketed instructions] will be treated as immediate instructions and will only apply to the following response (or swipes for that response).  
-[[Double-bracketed instructions]] will be treated as long-term instructions that apply for multiple responses (10, by default--this can be configured on the stage in Chat Settings), or until new long-term instruction is provided. 
+[[Double-bracketed instructions]] will be treated as long-term instructions that apply for multiple responses (10, by default--this can be configured on the stage in Chat Settings), or until new [[long-term instruction]] is provided. 
 <br>
 <br>
-For example, if you write, 
+For example, if you write:
 <br>
-`I give {{char}} a friendly wave. [{{char}} should ignore {{user}}.] [[{{char}} is always dismissive of {{user}}.]]`
+```I give {{char}} a friendly wave. [{{char}} ignores {{user}}'s wave.] [[{{char}} is always dismissive of {{user}}.]]```
 <br>
-then your input will appear as \"`I give {{char}} a friendly wave.`\" and the LLM will also receive:
+then your input will appear as:
 <br>
-`### Ongoing Instruction: {{char}} is always dismissive of {{user}}.`
+```I give {{char}} a friendly wave.```
 <br>
-`### Critical Instruction: {{char}} should ignore {{user}}.`
+and the LLM will also receive:
 <br>
-at the end of the prompt, which should help the LLM better adhere to this instruction. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
+```### Ongoing Instruction: {{char}} is always dismissive of {{user}}.
 <br>
+### Critical Instruction: {{char}} should ignore {{user}}'s wave.```
 <br>
-Regarding the final bulletpoint above, stage directions are only applied to the immediate responses to that input. This keeps irrelevant instructions from eating up context, but it may be counter-intuitive; 
-if you provide instructions that are not fully executed in the next response, you may have to provide continued instruction in the following input.
+at the end of the prompt, which should help the LLM better adhere to this instruction. The \"Ongoing Instruction\" will last fore multiple responses or until you replace it with further [[long-term instruction]]. 
+The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
 <br>
 <br>
 This is an incredibly simple quality-of-life stage that I felt some folks might like to be able to drop into their chats. Let me know if you have any issues or suggestions. Thanks!
 <br>
 <br>
-2025.04.05 - Adding double brackets as a long-term instruction. If you notice anything weird, it's because I'm not finished yet.
+2025.04.05 - Added [[double brackets]] for long-term instruction.
 "
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
