@@ -63,7 +63,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         const possibleLongTermInstruction = [...newContent.matchAll(longTermRegex)].map(match => match.slice(1)).join('\n').trim();
         if (possibleLongTermInstruction.length > 0) {
             if (this.longTermLife > 0) {
-                console.log(`Replacing long-term instruction:\n${this.longTermInstruction}\nWith:${possibleLongTermInstruction}`);
+                console.log(`Replacing long-term instruction:\n${this.longTermInstruction}\nWith:\n${possibleLongTermInstruction}`);
             } else {
                 console.log(`Setting long-term instruction:\n${possibleLongTermInstruction}`);
             }
