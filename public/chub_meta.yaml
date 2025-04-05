@@ -25,17 +25,23 @@ There are multiple advantages to shifting these instructions into stage directio
 <br>
 For example, if you write:
 <br>
-```I give {{char}} a friendly wave. [{{char}} ignores {{user}}'s wave.] [[{{char}} is always dismissive of {{user}}.]]```
+<br>
+`I give {{char}} a friendly wave. [{{char}} ignores {{user}}'s wave.] [[{{char}} is always dismissive of {{user}}.]]`
+<br>
 <br>
 then your input will appear as:
 <br>
-```I give {{char}} a friendly wave.```
+<br>
+`I give {{char}} a friendly wave.`
+<br>
 <br>
 and the LLM will also receive:
 <br>
-```### Ongoing Instruction: {{char}} is always dismissive of {{user}}.
 <br>
-### Critical Instruction: {{char}} should ignore {{user}}'s wave.```
+`### Ongoing Instruction: {{char}} is always dismissive of {{user}}.`
+<br>
+`### Critical Instruction: {{char}} should ignore {{user}}'s wave.`
+<br>
 <br>
 at the end of the prompt, which should help the LLM better adhere to this instruction. The \"Ongoing Instruction\" will last fore multiple responses or until you replace it with further [[long-term instruction]]. 
 The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
