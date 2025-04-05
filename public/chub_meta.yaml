@@ -43,7 +43,7 @@ and the LLM will also receive:
 `### Critical Instruction: {{char}} should ignore {{user}}'s wave.`
 <br>
 <br>
-at the end of the prompt, which should help the LLM better adhere to this instruction. The \"Ongoing Instruction\" will last fore multiple responses or until you replace it with further [[long-term instruction]]. 
+at the end of the prompt, which should help the LLM better adhere to this instruction. The \"Ongoing Instruction\" will last for multiple responses or until you replace it with further [[long-term instruction]]. 
 The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
 <br>
 <br>
