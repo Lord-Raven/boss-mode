@@ -42,8 +42,8 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
     }
 
     async readMessageState(state: MessageStateType) {
-        this.longTermInstruction = state.longTermInstruction ?? '';
-        this.longTermLife = state.longTermLife ?? 0;
+        this.longTermInstruction = state?.longTermInstruction ?? '';
+        this.longTermLife = state?.longTermLife ?? 0;
     }
 
     async writeMessageState() {
