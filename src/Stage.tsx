@@ -9,31 +9,80 @@ type ChatStateType = any;
 
 export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateType, ConfigType> {
 
+    // Configurable:
+    maxLife: number = 5;
+
+    // Per message state:
+    longTermInstruction: string = '';
+    longTermLife: number = 0;
+
+
     constructor(data: InitialData<InitStateType, ChatStateType, MessageStateType, ConfigType>) {
         super(data);
+
+        const {config, messageState} = data;
+        this.maxLife = config.maxLife ?? this.maxLife;
+
+        this.readMessageState(messageState);
     }
 
     async load(): Promise<Partial<LoadResponse<InitStateType, ChatStateType, MessageStateType>>> {
+
         return {
             success: true,
             error: null,
             initState: null,
             chatState: null,
+            messageState: this.writeMessageState()
         };
     }
 
     async setState(state: MessageStateType): Promise<void> {
+        this.readMessageState(state);
+    }
+
+    async readMessageState(state: MessageStateType) {
+        this.longTermInstruction = state.longTermInstruction ?? '';
+        this.longTermLife = state.longTermLife ?? 0;
+    }
+
+    async writeMessageState() {
+        return {
+            longTermInstruction: this.longTermInstruction,
+            longTermLife: this.longTermLife
+        }
     }
 
     async beforePrompt(userMessage: Message): Promise<Partial<StageResponse<ChatStateType, MessageStateType>>> {
         const {content} = userMessage;
-        const regex = /\[([^\]]+)\](?!\()/gm;
-        const stageDirections = [...content.matchAll(regex)].map(match => match.slice(1)).join('\n').trim();
-        const newContent = content.replace(regex, "").trim();
+        let newContent = content;
+
+        this.longTermLife = Math.max(0, this.longTermLife - 1);
+
+        const longTermRegex = /\[\[([^\]]+)\]\](?!\()/gm;
+        const possibleLongTermInstruction = [...newContent.matchAll(longTermRegex)].map(match => match.slice(1)).join('\n').trim();
+        if (possibleLongTermInstruction.length > 0) {
+            if (this.longTermLife > 0) {
+                console.log(`Replacing long-term instruction:\n${this.longTermInstruction}\nWith:${possibleLongTermInstruction}`);
+            } else {
+                console.log(`Setting long-term instruction:\n${possibleLongTermInstruction}`);
+            }
+            this.longTermInstruction = possibleLongTermInstruction;
+            this.longTermLife = this.maxLife;
+            newContent = newContent.replace(longTermRegex, "").trim();
+        }
+
+        const currentRegex = /\[([^\]]+)\](?!\()/gm;
+        const currentInstruction = [...newContent.matchAll(currentRegex)].map(match => match.slice(1)).join('\n').trim();
+        newContent = newContent.replace(currentRegex, "").trim();
+
+        const stageDirections = 
+                ((this.longTermInstruction.length > 0 && this.longTermLife > 0) ? `###Ongoing Instruction: ${this.longTermInstruction}\n` : '') +
+                (currentInstruction.length > 0 ? `###Critical Instruction: ${currentInstruction}\n` : '');
 
         return {
-            stageDirections: stageDirections.length > 0 ? `[RESPONSE INSTRUCTION]${stageDirections}[/RESPONSE INSTRUCTION]` : null,
-            messageState: null,
+            stageDirections: stageDirections.length > 0 ? stageDirections : null,
+            messageState: this.writeMessageState(),
             modifiedMessage: newContent,
             systemMessage: null,
             error: null,
@@ -44,7 +93,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
     async afterResponse(botMessage: Message): Promise<Partial<StageResponse<ChatStateType, MessageStateType>>> {
         return {
             stageDirections: null,
-            messageState: null,
+            messageState: this.writeMessageState(),
             modifiedMessage: null,
             error: null,
             systemMessage: null,

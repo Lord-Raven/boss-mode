@@ -29,7 +29,11 @@ Regarding the final bulletpoint above, stage directions are only applied to the 
 if you provide instructions that are not fully executed in the next response, you may have to provide continued instruction in the following input.
 <br>
 <br>
-This is an incredibly simple quality-of-life stage that I felt some folks might like to be able to drop into their chats. Let me know if you have any issues or suggestions. Thanks!"
+This is an incredibly simple quality-of-life stage that I felt some folks might like to be able to drop into their chats. Let me know if you have any issues or suggestions. Thanks!
+<br>
+<br>
+2025.04.05 - Adding double brackets as a long-term instruction. If you notice anything weird, it's because I'm not finished yet.
+"
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
 visibility: 'PUBLIC'
@@ -57,9 +61,10 @@ tags:
 config_schema:
   type: object
   properties:
-    debugMode:
-      type: boolean
-      default: false
+    longTermLife:
+      name: "Long-Term Instruction Duration"
+      type: integer
+      default: 5
 
 # The schema of the state that you store.
 # This isn't needed even if you do store state,
