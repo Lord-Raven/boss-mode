@@ -10,7 +10,7 @@ type ChatStateType = any;
 export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateType, ConfigType> {
 
     // Configurable:
-    maxLife: number = 5;
+    maxLife: number = 10;
 
     // Per message state:
     longTermInstruction: string = '';
@@ -77,8 +77,8 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         newContent = newContent.replace(currentRegex, "").trim();
 
         const stageDirections = 
-                ((this.longTermInstruction.length > 0 && this.longTermLife > 0) ? `###Ongoing Instruction: ${this.longTermInstruction}\n` : '') +
-                (currentInstruction.length > 0 ? `###Critical Instruction: ${currentInstruction}\n` : '');
+                ((this.longTermInstruction.length > 0 && this.longTermLife > 0) ? `### Ongoing Instruction: ${this.longTermInstruction}\n` : '') +
+                (currentInstruction.length > 0 ? `### Critical Instruction: ${currentInstruction}\n` : '');
 
         return {
             stageDirections: stageDirections.length > 0 ? stageDirections : null,

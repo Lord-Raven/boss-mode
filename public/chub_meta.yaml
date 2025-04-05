@@ -7,7 +7,7 @@ project_name: "Boss Mode"
 # A short tagline to show in search.
 tagline: "Take control with []s."
 
-creator_notes: "Want to tell the LLM how to do its job? This stage takes your bracketed instructions and turns them into \"stage directions,\" which are higher-priority instructions that are not directly attributed to the user's input. 
+creator_notes: "Want to tell the LLM how to do its job? This stage takes your [bracketed instructions] or [[double-bracketed instructions]] and turns them into \"stage directions,\" which are higher-priority instructions that are not directly attributed to the user's input. 
 Simply search for and add this stage to your chat from Chat Settings and you'll be able to leverage this feature in your input. 
 <br>
 <br>
@@ -16,13 +16,24 @@ There are multiple advantages to shifting these instructions into stage directio
 <li>They are more likely to be honored by the LLM.
 <li>They  are less likely to be mimicked by the LLM.
 <li>You'll maintain cleaner input in your narrative.
-<li>Stage directions fall out of context for future requests.
+<li>Stage directions fall out of context rather than continue to occupy chat history.
 </ul>
 
+[Single-bracketed instructions] will be treated as immediate instructions and will only apply to the following response (or swipes for that response).  
+[[Double-bracketed instructions]] will be treated as long-term instructions that apply for multiple responses (10, by default--this can be configured on the stage in Chat Settings), or until new long-term instruction is provided. 
+<br>
+<br>
 For example, if you write, 
-\"`I give {{char}} a friendly wave. [{{char}} should ignore {{user}}.]`\" 
-then your input will appear as \"`I give {{char}} a friendly wave.`\" and the LLM will also receive \"`[RESPONSE INSTRUCTION]{{char}} should ignore {{user}}.[/RESPONSE INSTRUCTION]`\" at the end of the prompt, 
-which should help the LLM better adhere to this instruction. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
+<br>
+`I give {{char}} a friendly wave. [{{char}} should ignore {{user}}.] [[{{char}} is always dismissive of {{user}}.]]`
+<br>
+then your input will appear as \"`I give {{char}} a friendly wave.`\" and the LLM will also receive:
+<br>
+`### Ongoing Instruction: {{char}} is always dismissive of {{user}}.`
+<br>
+`### Critical Instruction: {{char}} should ignore {{user}}.`
+<br>
+at the end of the prompt, which should help the LLM better adhere to this instruction. The stage supports multiple notes per input and also ignores brackets followed by parens, to avoid breaking markdown links.
 <br>
 <br>
 Regarding the final bulletpoint above, stage directions are only applied to the immediate responses to that input. This keeps irrelevant instructions from eating up context, but it may be counter-intuitive; 
@@ -63,9 +74,10 @@ config_schema:
   type: object
   properties:
     longTermLife:
-      description: "Long-Term Instruction Duration"
+      title: "Long-Term Instruction Duration"
+      description: "The number of subsequent responses that long-term instructions will persist to stage directions."
       type: integer
-      default: 5
+      default: 10
 
 # The schema of the state that you store.
 # This isn't needed even if you do store state,
