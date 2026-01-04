@@ -31,6 +31,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
     // Configurable:
     artStyle: string = 'hyperrealistic illustration, dynamic angle, rich lighting';
     aspectRatio: AspectRatio = AspectRatio.WIDESCREEN_HORIZONTAL;
+    enhanceMaxTokens: number = 300;
 
     // Per-message state:
     longTermInstruction: string = '';
@@ -55,6 +56,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         const {config, messageState} = data;
         this.artStyle = config?.artStyle ?? this.artStyle;
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
+        this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
 
         this.readMessageState(messageState);
     }
@@ -289,15 +291,15 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 `About {{user}}: ${this.users[userId].chatProfile}\n\n` +
                 `[Begin real interaction.]\n{{messages}}\n` +
                 `{{user}}: ${newHistory}\n\n` +
-                `General Instruction: [{{post_history_instructions}}]\n\n` +
-                `Priority Instruction: [At the System prompt, seamlessly continue the narrative as {{user}}, ` +
+                `General Instruction: {{post_history_instructions}}\n\n` +
+                `Priority Instruction: At the System prompt, seamlessly continue the narrative as {{user}}, ` +
                 (targetContext.trim() != '' ?
                     `focusing on depicting and enhancing the following intent from {{user}}'s perspective: \"${targetContext}\".\n` :
                     `focusing on depicting {{user}}'s next dialog or actions from their perspective.\n`) +
-                `Write as though building directly from {{user}}'s final input above, taking care to maintain the narrative voice and style {{user}} employs while conveying the target intent with superior detail and suitable impact]\n\n`,
+                `Write as though building directly from {{user}}'s final input above, taking care to maintain the narrative voice and style {{user}} employs while conveying the target intent with superior detail and suitable impact.\n\n{{user}}:`,
 
-            min_tokens: 50,
-            max_tokens: 300,
+            min_tokens: Math.min(50, this.enhanceMaxTokens),
+            max_tokens: this.enhanceMaxTokens,
             include_history: true,
         });
     }
