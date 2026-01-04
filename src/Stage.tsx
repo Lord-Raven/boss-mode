@@ -292,12 +292,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 `[Begin real interaction.]\n{{messages}}\n` +
                 `{{user}}: ${newHistory}\n\n` +
                 `General Instruction: {{post_history_instructions}}\n\n` +
-                `Priority Instruction: At the System prompt, seamlessly continue the narrative as {{user}}, ` +
+                `Priority Instruction: At the System: prompt, seamlessly continue the narrative as {{user}}, ` +
                 (targetContext.trim() != '' ?
                     `focusing on depicting and enhancing the following intent from {{user}}'s perspective: \"${targetContext}\".\n` :
                     `focusing on depicting {{user}}'s next dialog or actions from their perspective.\n`) +
-                `Write as though building directly from {{user}}'s final input above, taking care to maintain the narrative voice and style historic "{{user}}:" entries employ, ` +
-                `while conveying the target intent with superior detail and suitable impact. End {{user}}'s input with "#END#".\n\n{{user}}:`,
+                `Write as though building directly from {{user}}'s final input above, maintaining the narrative voice and style exemplified by historic "{{user}}:" entries ` +
+                `while conveying the target intent with superior detail and suitable impact. End {{user}}'s input with "#END#".`,
 
             min_tokens: Math.min(50, this.enhanceMaxTokens),
             max_tokens: this.enhanceMaxTokens,
