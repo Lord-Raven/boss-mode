@@ -31,7 +31,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
     // Configurable:
     artStyle: string = 'hyperrealistic illustration, dynamic angle, rich lighting';
     aspectRatio: AspectRatio = AspectRatio.WIDESCREEN_HORIZONTAL;
-    enhanceMaxTokens: number = 300;
+    enhanceMaxTokens: number = 500;
 
     // Per-message state:
     longTermInstruction: string = '';
@@ -296,10 +296,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 (targetContext.trim() != '' ?
                     `focusing on depicting and enhancing the following intent from {{user}}'s perspective: \"${targetContext}\".\n` :
                     `focusing on depicting {{user}}'s next dialog or actions from their perspective.\n`) +
-                `Write as though building directly from {{user}}'s final input above, taking care to maintain the narrative voice and style {{user}} employs while conveying the target intent with superior detail and suitable impact.\n\n{{user}}:`,
+                `Write as though building directly from {{user}}'s final input above, taking care to maintain the narrative voice and style historic "{{user}}:" entries employ, ` +
+                `while conveying the target intent with superior detail and suitable impact. End {{user}}'s input with "#END#".\n\n{{user}}:`,
 
             min_tokens: Math.min(50, this.enhanceMaxTokens),
             max_tokens: this.enhanceMaxTokens,
+            stop: ['#END', '\nSystem: ', `\n${this.characters[charId].name}: `],
             include_history: true,
         });
     }

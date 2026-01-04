@@ -107,7 +107,7 @@ config_schema:
       title: "Enhance Command Max Tokens"
       description: "The maximum number of tokens to use when generating text for the /enhance command."
       type: integer
-      default: 300
+      default: 500
     artStyle:
       title: "Art Descriptors"
       description: "This content will be provided to image generation to describe the style of the images for this chat."
