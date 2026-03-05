@@ -74,7 +74,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
     async setState(state: MessageStateType): Promise<void> {
         this.readMessageState(state);
-        await this.messenger.updateEnvironment({background: this.backgroundUrl ?? ''});
+        void this.messenger.updateEnvironment({background: this.backgroundUrl ?? ''});
     }
 
     readMessageState(state: MessageStateType) {
