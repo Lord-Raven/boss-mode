@@ -173,9 +173,9 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         // Remove commands:
         currentInstructions = currentInstructions.filter(instruction => !instruction.startsWith("/"));
 
-        const stageDirections = 
-                ((this.longTermInstruction.length > 0) ? `Ongoing Instruction: ${this.longTermInstruction}\n` : '') +
-                (currentInstructions.length > 0 ? `Critical Instruction: ${currentInstructions.join('\n').trim()}\n` : '');
+        let stageDirections =
+                ((this.longTermInstruction.length > 0) ? `<OngoingInstruction>${this.longTermInstruction}</OngoingInstruction>\n` : '') +
+                (currentInstructions.length > 0 ? `<CriticalInstruction>${currentInstructions.join('</CriticalInstruction>\n<CriticalInstruction>').trim()}</CriticalInstruction>\n` : '');
 
         // Preserve empty responses that only had instruction.
         if (newContent !== content && newContent.length == 0) {
@@ -183,6 +183,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         }
 
         if (stageDirections.length > 0) {
+            stageDirections = `<SpecialInstructions>${stageDirections}</SpecialInstructions>`;
             console.log(`Sending stage directions:\n${stageDirections}`);
         }
 
