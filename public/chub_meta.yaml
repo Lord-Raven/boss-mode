@@ -62,7 +62,8 @@ which are high-priority instructions that are not directly attributed to the use
 <div style=\"background: linear-gradient(180deg, #110022, #111111); box-shadow: 0 0 8px rgba(255, 255, 255, 0.05); color: #f1f1f1; border: 1px solid #555; border-radius: 6px; padding: 10px; margin-bottom: 12px;\">
   <p style=\"margin-bottom: 8px;\"><strong>🛠️ Updates</strong></p>
   <p>As always, let me know if you have any issues or suggestions. Thanks!</p>
-  <p>2026.01.04 - Added max_tokens for enhance command to configuration.<br>
+  <p>2026.07.06 - Attempting to improve adherence for new Soji.<br>
+  2026.01.04 - Added max_tokens for enhance command to configuration.<br>
   2025.09.16 - Removed the long-term instruction lifespan. It now always persists until new [[long-term instruction]] is provided or cleared with empty [[]].<br>
   2025.08.12 - Minor prompt changes and stage version updates. The textgen bug that impacted history inclusion has been fixed, so [/imagine] and [/impersonate] should be more consistent.<br>
   2025.07.27 - Added an /impersonate command.<br>
