@@ -183,7 +183,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         }
 
         if (stageDirections.length > 0) {
-            stageDirections = `<AdditionalInstructionsAndGuidance><Description>These additional instructions and guidance are critical to the narrative; incorporate narrative guidance and honor any instructions or rules described herein.</Description>${stageDirections}</AdditionalInstructionsAndGuidance>`;
+            stageDirections = `<AdditionalInstructionsAndGuidance>\n<Rule>These additional instructions are critical to the narrative; incorporate narrative guidance and honor any instructions or rules described herein.</Rule>\n${stageDirections}</AdditionalInstructionsAndGuidance>`;
             console.log(`Sending stage directions:\n${stageDirections}`);
         }
 
