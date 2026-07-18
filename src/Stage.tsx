@@ -69,7 +69,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 inputSchema: { url: z.string().describe('The URL of the image to read.') }
             },
             // type the destructured parameter to avoid implicit any
-            async ({ url }: { url: string }): Promise<CallToolResult> => {
+            async ({ url }): Promise<CallToolResult> => {
                 return {
                     content: [
                         {
