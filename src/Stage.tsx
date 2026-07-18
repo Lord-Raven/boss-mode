@@ -65,7 +65,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             {
                 title: 'Read Image from URL',
                 description: 'Reads an image from a URL and returns a string description of its contents.',
-                inputSchema: {url: z.string().describe('The URL of the image to read.')}
+                inputSchema: z.object({url: z.string().describe('The URL of the image to read.')})
             },
             async ({ url }): Promise<CallToolResult> => {
                 return {
