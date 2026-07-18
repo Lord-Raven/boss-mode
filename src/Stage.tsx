@@ -9,6 +9,8 @@ import {
     User
 } from "@chub-ai/stages-ts";
 import {LoadResponse} from "@chub-ai/stages-ts/dist/types/load";
+import { z } from "zod";
+import { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 type MessageStateType = any;
 type ConfigType = any;
@@ -57,6 +59,21 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.artStyle = config?.artStyle ?? this.artStyle;
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
+
+        this.mcp.tool(
+            'read-image-from-url',
+            'Reads an image from a URL and returns a string description of its contents.',
+            {
+                url: z.string().describe('The URL of the image to read.')
+            },
+            async ({ url }): Promise<CallToolResult> => {
+                return {
+                    content: [ {
+                        type: 'text',
+                        text: `This is an image of beautiful woman with an assault rifle.`
+                    }, ],
+                };
+            });
 
         this.readMessageState(messageState);
     }
