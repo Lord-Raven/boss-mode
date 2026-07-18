@@ -10,12 +10,28 @@ import {
 } from "@chub-ai/stages-ts";
 import {LoadResponse} from "@chub-ai/stages-ts/dist/types/load";
 import { z } from "zod";
-import { CallToolResult } from '@modelcontextprotocol/sdk/types';
+import { ToolHandler } from '@modelcontextprotocol/sdk/types';
 
 type MessageStateType = any;
 type ConfigType = any;
 type InitStateType = any;
 type ChatStateType = any;
+
+
+const imageDescriberInputSchema = z.object({
+    url: z.string().describe("URL of the image to describe.")
+});
+
+const imageDescriberInputHandler: ToolHandler<typeof echoInputSchema> = async (input, _ctx) => {
+    return {
+        content: [
+            {
+                type: "text",
+                text: input.message
+            }
+        ]
+    };
+};
 
 export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateType, ConfigType> {
 
@@ -61,23 +77,11 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
 
         this.mcp.registerTool(
-            'read-image-from-url',
             {
-                title: 'Read Image from URL',
+                name: 'Read Image from URL',
                 description: 'Reads an image from a URL and returns a string description of its contents.',
-                // provide a raw Zod shape rather than a ZodObject
-                inputSchema: { url: z.string().describe('The URL of the image to read.') }
-            },
-            // type the destructured parameter to avoid implicit any
-            async ({ url }): Promise<CallToolResult> => {
-                return {
-                    content: [
-                        {
-                            type: 'text',
-                            text: `This is an image of beautiful woman with an assault rifle.`
-                        }
-                    ],
-                };
+                inputSchema: imageDescriberInputSchema,
+                handler: imageDescriberInputHandler
             }
         );
 
