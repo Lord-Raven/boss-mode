@@ -60,17 +60,15 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
 
-        const ReadImageInput = z.object({
-            url: z.string().url().describe('The URL of the image to read.')
-        });
         this.mcp.registerTool(
             'read-image-from-url',
             {
                 title: 'Read Image from URL',
                 description: 'Reads an image from a URL and returns a string description of its contents.',
-                inputSchema: ReadImageInput
+                inputSchema: z.object({url: z.string().describe('The URL of the image to read.')
+                })
             },
-            async (input: z.infer<typeof ReadImageInput>): Promise<CallToolResult> => {
+            async ({url}): Promise<CallToolResult> => {
                 return {
                     content: [
                         {
