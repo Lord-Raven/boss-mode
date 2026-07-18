@@ -63,9 +63,9 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.mcp.tool(
             'read-image-from-url',
             'Reads an image from a URL and returns a string description of its contents.',
-            {
+            z.object({
                 url: z.string().describe('The URL of the image to read.')
-            },
+            }),
             async ({ url }): Promise<CallToolResult> => {
                 return {
                     content: [ {
