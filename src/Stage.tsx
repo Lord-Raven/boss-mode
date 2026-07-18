@@ -76,13 +76,24 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
 
-        this.mcp.registerTool(
+        /*this.mcp.registerTool(
             {
                 name: 'Read Image from URL',
                 description: 'Reads an image from a URL and returns a string description of its contents.',
                 inputSchema: imageDescriberInputSchema,
                 handler: imageDescriberInputHandler
             }
+        );*/
+
+        this.mcp.registerTool(
+            'get-forecast',
+            {
+                description: 'Get the weather forecast for a city',
+                inputSchema: z.object({ city: z.string() })
+            },
+            async ({ city }) => ({
+                content: [{ type: 'text', text: `Sunny in ${city} all week.` }]
+            })
         );
 
         this.readMessageState(messageState);
