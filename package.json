@@ -16,14 +16,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chub-ai/stages-ts": "^0.5.2",
+    "@capacitor/core": "5.7.4",
+    "@capacitor/dialog": "5.0.7",
+    "@chub-ai/stages-ts": "0.5.2",
     "@typescript-eslint/parser": "^7.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite-plugin-dts": "^3.9.1"
+    "react-dom": "^18.2.0"
   },
   "engines": {
-    "node": "24.2.0"
+    "node": ">=24.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -33,7 +34,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "sass": "^1.72.0",
-    "typescript": "^5.4.2",
+    "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
   "exports": {
