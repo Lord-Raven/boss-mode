@@ -343,6 +343,13 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@modelcontextprotocol/core@2.0.0-beta.4":
+  version "2.0.0-beta.4"
+  resolved "https://registry.npmjs.org/@modelcontextprotocol/core/-/core-2.0.0-beta.4.tgz"
+  integrity sha512-nsMXd4wQBKzmph6r+WOhum+mXjDYljTAqwY/XUg3hLtvNOQ8+JVqBSJOVCMJvx9lXhTpTOPrGZ3BuNiaNPjSvg==
+  dependencies:
+    zod "^4.2.0"
+
 "@modelcontextprotocol/sdk@^1.18.2":
   version "1.29.0"
   resolved "https://registry.npmjs.org/@modelcontextprotocol/sdk/-/sdk-1.29.0.tgz"
@@ -2185,6 +2192,11 @@ zod@^3.25.76:
   version "3.25.76"
   resolved "https://registry.npmjs.org/zod/-/zod-3.25.76.tgz"
   integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
+
+zod@^4.2.0:
+  version "4.4.3"
+  resolved "https://registry.npmjs.org/zod/-/zod-4.4.3.tgz"
+  integrity sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==
 
 zod@4.0.0:
   version "4.0.0"
