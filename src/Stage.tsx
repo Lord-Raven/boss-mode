@@ -10,7 +10,6 @@ import {
 } from "@chub-ai/stages-ts";
 import {LoadResponse} from "@chub-ai/stages-ts/dist/types/load";
 import { z } from "zod";
-import { ToolHandler } from '@modelcontextprotocol/sdk/types';
 
 type MessageStateType = any;
 type ConfigType = any;
@@ -18,7 +17,7 @@ type InitStateType = any;
 type ChatStateType = any;
 
 
-const imageDescriberInputSchema = z.object({
+/*const imageDescriberInputSchema = z.object({
     url: z.string().describe("URL of the image to describe.")
 });
 
@@ -31,7 +30,7 @@ const imageDescriberInputHandler: ToolHandler<typeof echoInputSchema> = async (i
             }
         ]
     };
-};
+};*/
 
 export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateType, ConfigType> {
 
@@ -89,11 +88,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             'get-forecast',
             {
                 description: 'Get the weather forecast for a city',
-                inputSchema: z.object({ city: z.string() })
+                inputSchema: { city: z.string() },
+                outputSchema: { forecast: z.string() }
             },
-            async ({ city }) => ({
-                content: [{ type: 'text', text: `Sunny in ${city} all week.` }]
-            })
+            async ({ city }) => {
+                return {content: [{ type: 'text', text: `Sunny in ${city} all week.` }]};
+            }
         );
 
         this.readMessageState(messageState);
