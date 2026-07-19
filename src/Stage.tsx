@@ -88,8 +88,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             'get-forecast',
             {
                 description: 'Get the weather forecast for a city',
-                inputSchema: { city: z.string() },
-                outputSchema: { forecast: z.string() }
+                inputSchema: { city: z.string() }
             },
             async ({ city }) => {
                 return {content: [{ type: 'text', text: `Sunny in ${city} all week.` }]};
