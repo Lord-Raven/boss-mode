@@ -84,7 +84,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             }
         );*/
 
-        this.mcp.registerTool(
+        /*this.mcp.registerTool(
             'get-image-description',
             {
                 description: 'Get a text description of an image at a URL.',
@@ -93,7 +93,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             async ({ imageUrl }) => {
                 return {content: [{ type: 'text', text: `A beautiful blonde firing an UZI.` }]};
             }
-        );
+        );*/
 
         this.readMessageState(messageState);
     }
