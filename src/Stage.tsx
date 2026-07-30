@@ -85,13 +85,13 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         );*/
 
         this.mcp.registerTool(
-            'get-forecast',
+            'get-image-description',
             {
-                description: 'Get the weather forecast for a city',
-                inputSchema: { city: z.string() }
+                description: 'Get a text description of an image at a URL.',
+                inputSchema: { imageUrl: z.string() }
             },
-            async ({ city }) => {
-                return {content: [{ type: 'text', text: `Sunny in ${city} all week.` }]};
+            async ({ imageUrl }) => {
+                return {content: [{ type: 'text', text: `A beautiful blonde firing an UZI.` }]};
             }
         );
 
