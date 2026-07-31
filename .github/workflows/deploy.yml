@@ -117,7 +117,7 @@ jobs:
         env:
           CHUB_AUTH_TOKEN: ${{ secrets.CHUB_AUTH_TOKEN }}
         run: |    
-          curl -F "file=@build.zip" https://chub-relay.lordraven31.workers.dev/${{ env.STAGE_ID }}/
+          curl -H "CH-API-KEY: ${{ secrets.CHUB_AUTH_TOKEN }}" "file=@build.zip" https://chub-relay.lordraven31.workers.dev/${{ env.STAGE_ID }}/
 
       - name: Setup .npmrc
         env:
