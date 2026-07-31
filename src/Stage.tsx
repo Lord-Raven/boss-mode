@@ -75,6 +75,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
 
+
         /*this.mcp.registerTool(
             {
                 name: 'Read Image from URL',
