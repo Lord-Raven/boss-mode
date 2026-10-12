@@ -49,6 +49,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
     artStyle: string = 'hyperrealistic illustration, dynamic angle, rich lighting';
     aspectRatio: AspectRatio = AspectRatio.WIDESCREEN_HORIZONTAL;
     enhanceMaxTokens: number = 500;
+    reduceChinese: boolean = false;
 
     // Per-message state:
     longTermInstruction: string = '';
@@ -74,7 +75,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.artStyle = config?.artStyle ?? this.artStyle;
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
-
+        this.reduceChinese = (config?.reduceChinese ?? "False") == "True";
 
         /*this.mcp.registerTool(
             {
@@ -220,6 +221,11 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             newContent = ' ';
         }
 
+        if (this.reduceChinese) {
+            // When beginning a response with a number, DS-based models appear more likely to produce English text following it.
+            stageDirections += `<OngoingInstruction>Begin this response with a random number between 10 and 20.</OngoingInstruction>\n`;
+        }
+
         if (stageDirections.length > 0) {
             stageDirections = `<AdditionalInstructionsAndGuidance>\n<Rule>These additional instructions are critical to the narrative; incorporate narrative guidance and honor any instructions or rules described herein.</Rule>\n${stageDirections}</AdditionalInstructionsAndGuidance>`;
             console.log(`Sending stage directions:\n${stageDirections}`);
@@ -237,7 +243,11 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
     async afterResponse(botMessage: Message): Promise<Partial<StageResponse<ChatStateType, MessageStateType>>> {
 
-        const newContent = await this.filterValidMarkdown(botMessage.content);
+        let newContent = await this.filterValidMarkdown(botMessage.content);
+        if (this.reduceChinese) {
+            // Remove the random number, if present. Strip up to the first letter or quotation mark (exclusive); we want to maintain the first letter or quotation mark of actual content.
+            newContent = newContent.trim().replace(/^\d+[^a-zA-Z"]*/, '');
+        }
 
         let imageUrls = [];
         for (let instruction of this.imageInstructions) {
