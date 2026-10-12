@@ -224,7 +224,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
         if (this.reduceChinese) {
             // When beginning a response with a number, DS-based models appear more likely to produce English text following it.
-            stageDirections += `<OngoingInstruction>Begin this response with a random number between 10 and 20.</OngoingInstruction>\n`;
+            stageDirections += `<OngoingInstruction>Begin this response by outputting a random number between 1 and 100.</OngoingInstruction>\n`;
         }
 
         if (stageDirections.length > 0) {
