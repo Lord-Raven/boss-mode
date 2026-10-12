@@ -76,7 +76,6 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.aspectRatio = (config && Object.keys(this.ASPECT_RATIO_MAPPING).includes(config.aspectRatio)) ? this.ASPECT_RATIO_MAPPING[config.aspectRatio] : this.aspectRatio;
         this.enhanceMaxTokens = config?.enhanceMaxTokens ?? this.enhanceMaxTokens;
         this.reduceChinese = (config?.reduceChinese ?? "False") == "True";
-        console.log(`config.reduceChinese: ${config?.reduceChinese}, reduceChinese: ${this.reduceChinese}`);
 
         /*this.mcp.registerTool(
             {
