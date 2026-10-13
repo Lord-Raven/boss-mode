@@ -246,7 +246,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         let newContent = await this.filterValidMarkdown(botMessage.content);
         if (this.reduceChinese) {
             // Remove the reference tag and number, if present. Strip up to the first letter or quotation mark (exclusive); we want to maintain the first letter or quotation mark of actual content.
-            newContent = newContent.trim().replace(/^<[a-zA-Z]*>\d+<[a-zA-Z]*\/>\s*/, '');
+            newContent = newContent.trim().replace(/^<[a-zA-Z]*>\d+<[a-zA-Z]*\/>\s*/, '').replace(/^\d+[^a-zA-Z"]*/, '');
         }
 
         let imageUrls = [];
