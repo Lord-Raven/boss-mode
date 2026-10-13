@@ -223,7 +223,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
         if (this.reduceChinese) {
             // When beginning a response with a number, DS-based models appear more likely to produce English text following it.
-            stageDirections += `<ReferenceInstruction>Begin this response by outputting the following referenceNumber tag: <!--referenceNumber: ${Math.ceil(Math.random() * 100)}--></ReferenceInstruction>\n`;
+            stageDirections += `<ReferenceInstruction>Begin this response by outputting this reference number: ${Math.ceil(Math.random() * 100)}</ReferenceInstruction>\n`;
         }
 
         if (stageDirections.length > 0) {
