@@ -223,7 +223,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
         if (this.reduceChinese) {
             // When beginning a response with a number, DS-based models appear more likely to produce English text following it.
-            stageDirections += `<OngoingInstruction>Begin this response by outputting the following reference tag: <referenceNumber>${Math.ceil(Math.random() * 100)}</referenceNumber>.</OngoingInstruction>\n`;
+            stageDirections += `<ReferenceInstruction>Begin this response by outputting the following referenceNumber tag: <!--referenceNumber: ${Math.ceil(Math.random() * 100)}--></ReferenceInstruction>\n`;
         }
 
         if (stageDirections.length > 0) {
@@ -246,7 +246,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         let newContent = await this.filterValidMarkdown(botMessage.content);
         if (this.reduceChinese) {
             // Remove the reference tag and number, if present. Strip up to the first letter or quotation mark (exclusive); we want to maintain the first letter or quotation mark of actual content.
-            newContent = newContent.trim().replace(/^<[a-zA-Z]*>\d+<[a-zA-Z]*\/>\s*/, '').replace(/^\d+[^a-zA-Z"]*/, '');
+            newContent = newContent.trim().replace(/^<!--\s*[a-zA-Z]*[_:]\s*\d+\s*-->\s*/, '').replace(/^\d+[^a-zA-Z"]*/, '');
         }
 
         let imageUrls = [];
